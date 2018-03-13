@@ -1,0 +1,93 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onCamera()">
+        <ion-icon name="aperture"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Information</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <sebm-google-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapDraggable]="false">
+     <sebm-google-map-polyline *ngFor="let list of lists">
+         <sebm-google-map-polyline-point [latitude]="list.lat1" [longitude]="list.lng1">
+         </sebm-google-map-polyline-point>
+         <sebm-google-map-polyline-point [latitude]="list.lat2" [longitude]="list.lng2">
+         </sebm-google-map-polyline-point>
+     </sebm-google-map-polyline>
+      <sebm-google-map-marker
+        [latitude]="selectedLocation.lat"
+        [longitude]="selectedLocation.lng"
+        [iconUrl]="Url">
+      </sebm-google-map-marker>
+  </sebm-google-map>
+  <ion-card>
+    <ion-card-header>
+      Location and Detail
+    </ion-card-header>
+    <ion-card-content>
+        <ion-item>
+          <ion-label floating>Location</ion-label>
+          <ion-select [(ngModel)]="selected" (ionChange)="onChange(selected)">
+            <ion-option value = "1">Malaysia</ion-option>
+            <ion-option value = "2">India</ion-option>
+            <ion-option value = "3">Dubai</ion-option>
+          </ion-select>
+        </ion-item>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      Image of the Day
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row wrap>
+          <ion-col *ngFor="let place of selectedPlace">
+            <img [src]="place.imageUrl">
+            <p>{{ place.description }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      Wildlife
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row wrap>
+          <ion-col *ngFor="let wild of selectedWild">
+            <img [src]="wild.imageUrl">
+            <p>{{ wild.description }}</p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      Culture
+    </ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row wrap>
+          <ion-col *ngFor="let culture of selectedCulture">
+            <ion-row>
+              <img [src]="culture.imageUrl">
+            </ion-row>
+            <ion-row>
+              <p>{{ culture.description }}</p>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
